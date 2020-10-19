@@ -131,7 +131,7 @@ class _InputFormState extends State<InputForm> {
       maxLength = 19;
       textInputType = TextInputType.number;
     } else if (widget.index == InputState.NAME.index) {
-      maxLength = 20;
+      maxLength = 26;
       textInputType = TextInputType.text;
     } else if (widget.index == InputState.VALIDATE.index) {
       maxLength = 5;

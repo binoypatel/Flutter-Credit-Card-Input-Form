@@ -31,6 +31,7 @@ class YellowBorder extends StatelessWidget {
             ),
           ),
           height: height,
+          width: width,
         ),
         alignment: align,
         duration: Duration(milliseconds: 300),
