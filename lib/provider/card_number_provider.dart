@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CardNumberProvider with ChangeNotifier {
-  var _cardNumber;
+  String _cardNumber;
+  String _error;
 
   CardNumberProvider(initValue) {
     _cardNumber = addSpaceToCardNumber(initValue);
@@ -10,6 +11,11 @@ class CardNumberProvider with ChangeNotifier {
   void setNumber(String newValue) {
     _cardNumber = addSpaceToCardNumber(newValue);
 
+    notifyListeners();
+  }
+
+  void setError(String error) {
+    _error = error;
     notifyListeners();
   }
 
@@ -30,5 +36,6 @@ class CardNumberProvider with ChangeNotifier {
     }
   }
 
-  get cardNumber => _cardNumber;
+  String get cardNumber => _cardNumber;
+  String get error => _error;
 }

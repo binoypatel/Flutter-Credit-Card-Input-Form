@@ -1,8 +1,9 @@
-import 'package:credit_card_input_form/constants/captions.dart';
-import 'package:flutter/material.dart';
 import 'package:credit_card_input_form/components/yellow_border.dart';
+import 'package:credit_card_input_form/constants/captions.dart';
 import 'package:credit_card_input_form/constants/constanst.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'card_logo.dart';
 import 'card_name.dart';
 import 'card_number.dart';
@@ -29,7 +30,10 @@ class FrontCardView extends StatelessWidget {
             YellowBorder(),
             Align(
               alignment: Alignment.centerLeft,
-              child: CardNumber(),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8),
+                child: FittedBox(fit: BoxFit.scaleDown, child: CardNumber()),
+              ),
             ),
             Align(alignment: Alignment.topRight, child: CardLogo()),
             Align(
@@ -45,7 +49,7 @@ class FrontCardView extends StatelessWidget {
                       style: kTextStyle,
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 4,
                     ),
                     CardName(),
                   ],
@@ -65,7 +69,7 @@ class FrontCardView extends StatelessWidget {
                       style: kTextStyle,
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 4,
                     ),
                     CardValid(),
                   ],

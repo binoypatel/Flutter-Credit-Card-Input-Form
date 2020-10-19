@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:credit_card_input_form/constants/constanst.dart';
 import 'package:credit_card_input_form/provider/card_name_provider.dart';
 import 'package:credit_card_input_form/provider/state_provider.dart';
 import 'package:credit_card_input_form/util/util.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'package:credit_card_input_form/constants/constanst.dart';
 
 class YellowBorder extends StatelessWidget {
   @override
@@ -32,7 +31,6 @@ class YellowBorder extends StatelessWidget {
             ),
           ),
           height: height,
-          width: width,
         ),
         alignment: align,
         duration: Duration(milliseconds: 300),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CardValidProvider with ChangeNotifier {
-  var _cardValid;
+  String _cardValid;
+  String _error;
 
   CardValidProvider(initValue) {
     _cardValid = initValue;
@@ -20,5 +21,11 @@ class CardValidProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  get cardValid => _cardValid;
+  void setError(String error) {
+    _error = error;
+    notifyListeners();
+  }
+
+  String get cardValid => _cardValid;
+  String get error => _error;
 }

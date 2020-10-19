@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CardCVVProvider with ChangeNotifier {
-  var _cardCVV;
+  String _cardCVV;
+  String _error;
 
   CardCVVProvider(initValue) {
     _cardCVV = initValue;
@@ -12,5 +13,11 @@ class CardCVVProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  get cardCVV => _cardCVV;
+  void setError(String error) {
+    _error = error;
+    notifyListeners();
+  }
+
+  String get cardCVV => _cardCVV;
+  String get error => _error;
 }

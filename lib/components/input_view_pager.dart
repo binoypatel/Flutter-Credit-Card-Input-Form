@@ -1,14 +1,16 @@
 import 'package:credit_card_input_form/constants/captions.dart';
-import 'package:credit_card_input_form/util/util.dart';
-import 'package:flutter/material.dart';
 import 'package:credit_card_input_form/constants/constanst.dart';
 import 'package:credit_card_input_form/provider/card_cvv_provider.dart';
 import 'package:credit_card_input_form/provider/card_name_provider.dart';
+import 'package:credit_card_input_form/provider/card_number_provider.dart';
 import 'package:credit_card_input_form/provider/card_valid_provider.dart';
 import 'package:credit_card_input_form/provider/state_provider.dart';
+import 'package:credit_card_input_form/util/util.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:credit_card_input_form/provider/card_number_provider.dart';
+
+import '../provider/card_number_provider.dart';
 
 class InputViewPager extends StatefulWidget {
   final pageController;
@@ -57,13 +59,13 @@ class _InputViewPagerState extends State<InputViewPager> {
     });
 
     return Container(
-        height: 86,
+        height: 96,
         child: PageView.builder(
             physics: NeverScrollableScrollPhysics(),
             controller: widget.pageController,
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                 child: InputForm(
                     focusNode: focusNodes[index],
                     title: titleMap[index],
@@ -159,18 +161,23 @@ class _InputFormState extends State<InputForm> {
   @override
   Widget build(BuildContext context) {
     String textValue = "";
+    String error;
 
     if (widget.index == InputState.NUMBER.index) {
       textValue =
           Provider.of<CardNumberProvider>(context, listen: false).cardNumber;
+      error = Provider.of<CardNumberProvider>(context, listen: false).error;
     } else if (widget.index == InputState.NAME.index) {
       textValue =
           Provider.of<CardNameProvider>(context, listen: false).cardName;
+      error = Provider.of<CardNameProvider>(context, listen: false).error;
     } else if (widget.index == InputState.VALIDATE.index) {
       textValue =
           Provider.of<CardValidProvider>(context, listen: false).cardValid;
+      error = Provider.of<CardValidProvider>(context, listen: false).error;
     } else if (widget.index == InputState.CVV.index) {
       textValue = Provider.of<CardCVVProvider>(context).cardCVV;
+      error = Provider.of<CardCVVProvider>(context, listen: false).error;
     }
 
     int index = Provider.of<StateProvider>(context, listen: false)
@@ -191,7 +198,6 @@ class _InputFormState extends State<InputForm> {
               height: 5,
             ),
             TextField(
-              autofocus: widget.index == index,
               controller: textController
                 ..value = textController.value.copyWith(
                   text: textValue,
@@ -222,6 +228,7 @@ class _InputFormState extends State<InputForm> {
                 counter: SizedBox(
                   height: 0,
                 ),
+                errorText: error,
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
                 border: OutlineInputBorder(
@@ -231,7 +238,7 @@ class _InputFormState extends State<InputForm> {
                     borderSide: BorderSide(width: 1, color: Colors.black38),
                     borderRadius: BorderRadius.circular(5)),
               ),
-            )
+            ),
           ],
         ),
       ),

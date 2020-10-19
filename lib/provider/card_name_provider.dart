@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CardNameProvider with ChangeNotifier {
-  var _cardName;
+  String _cardName;
+  String _error;
 
   CardNameProvider(initValue) {
     _cardName = initValue;
@@ -12,5 +13,11 @@ class CardNameProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  get cardName => _cardName;
+  void setError(String error) {
+    _error = error;
+    notifyListeners();
+  }
+
+  String get cardName => _cardName;
+  String get error => _error;
 }

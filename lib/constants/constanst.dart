@@ -10,7 +10,7 @@ final kCardNumberTextStyle = TextStyle(
 );
 
 final kCardDefaultTextStyle = TextStyle(
-  color: Colors.grey,
+  color: Colors.black38,
   fontFamily: 'U and I',
   package: 'credit_card_input_form',
   fontSize: 25,
@@ -42,7 +42,7 @@ const kNametextStyle = TextStyle(
 
 const kDefaultNameTextStyle = TextStyle(
   fontSize: 15,
-  color: Colors.grey,
+  color: Colors.black38,
   fontFamily: 'U and I',
   package: 'credit_card_input_form',
 );
@@ -57,7 +57,7 @@ const kValidtextStyle = TextStyle(
 
 const kDefaultValidTextStyle = TextStyle(
   fontSize: 15,
-  color: Colors.grey,
+  color: Colors.black38,
   fontFamily: 'U and I',
   package: 'credit_card_input_form',
 );

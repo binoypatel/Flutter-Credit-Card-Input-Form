@@ -1,10 +1,7 @@
-import 'package:credit_card_input_form/components/reset_button.dart';
-import 'package:flip_card/flip_card.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:credit_card_input_form/components/back_card_view.dart';
 import 'package:credit_card_input_form/components/front_card_view.dart';
 import 'package:credit_card_input_form/components/input_view_pager.dart';
+import 'package:credit_card_input_form/components/reset_button.dart';
 import 'package:credit_card_input_form/components/round_button.dart';
 import 'package:credit_card_input_form/constants/constanst.dart';
 import 'package:credit_card_input_form/model/card_info.dart';
@@ -13,7 +10,11 @@ import 'package:credit_card_input_form/provider/card_name_provider.dart';
 import 'package:credit_card_input_form/provider/card_number_provider.dart';
 import 'package:credit_card_input_form/provider/card_valid_provider.dart';
 import 'package:credit_card_input_form/provider/state_provider.dart';
+import 'package:flip_card/flip_card.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:validators/validators.dart';
 
 import 'constants/captions.dart';
 import 'constants/constanst.dart';
@@ -280,9 +281,6 @@ class _CreditCardInputImplState extends State<CreditCardInputImpl> {
                       .movePrevState();
                 }),
           ),
-          SizedBox(
-            width: 10,
-          ),
           AnimatedOpacity(
             opacity: _currentState == InputState.DONE ? 0 : 1,
             duration: Duration(milliseconds: 500),
@@ -294,6 +292,50 @@ class _CreditCardInputImplState extends State<CreditCardInputImpl> {
                     ? captions.getCaption('DONE')
                     : captions.getCaption('NEXT'),
                 onTap: () {
+                  if (_currentState == InputState.NUMBER) {
+                    if (cardNumber.isEmpty || cardNumber.trim().isEmpty) {
+                      Provider.of<CardNumberProvider>(context, listen: false)
+                          .setError('Please enter credit card number');
+                      return;
+                    } else if (!isCreditCard(cardNumber)) {
+                      Provider.of<CardNumberProvider>(context, listen: false)
+                          .setError('Credit card number is not valid');
+                      return;
+                    } else {
+                      Provider.of<CardNumberProvider>(context, listen: false)
+                          .setError(null);
+                    }
+                  }
+                  if (_currentState == InputState.NAME) {
+                    if (name.isEmpty || name.trim().isEmpty) {
+                      Provider.of<CardNameProvider>(context, listen: false)
+                          .setError('Please enter card holder name');
+                      return;
+                    } else {
+                      Provider.of<CardNameProvider>(context, listen: false)
+                          .setError(null);
+                    }
+                  }
+                  if (_currentState == InputState.VALIDATE) {
+                    if (!isValidExpiry(valid)) {
+                      Provider.of<CardValidProvider>(context, listen: false)
+                          .setError('Please enter valid expiry date');
+                      return;
+                    } else {
+                      Provider.of<CardValidProvider>(context, listen: false)
+                          .setError(null);
+                    }
+                  }
+                  if (_currentState == InputState.CVV) {
+                    if (cvv.isEmpty || cvv.trim().isEmpty) {
+                      Provider.of<CardCVVProvider>(context, listen: false)
+                          .setError('Please enter CVV code');
+                      return;
+                    } else {
+                      Provider.of<CardCVVProvider>(context, listen: false)
+                          .setError(null);
+                    }
+                  }
                   if (InputState.CVV != _currentState) {
                     pageController.nextPage(
                         duration: Duration(milliseconds: 300),
@@ -314,5 +356,16 @@ class _CreditCardInputImplState extends State<CreditCardInputImpl> {
         ])
       ],
     );
+  }
+
+  bool isValidExpiry(String validThru) {
+    if (validThru.isEmpty ||
+        validThru.trim().isEmpty ||
+        validThru.trim().length < 5) {
+      return false;
+    }
+    var month = int.parse(validThru.substring(0, 2));
+    var year = 2000 + int.parse(validThru.substring(3));
+    return (month >= DateTime.now().month && year >= DateTime.now().year);
   }
 }
