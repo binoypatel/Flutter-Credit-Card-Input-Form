@@ -366,6 +366,7 @@ class _CreditCardInputImplState extends State<CreditCardInputImpl> {
     }
     var month = int.parse(validThru.substring(0, 2));
     var year = 2000 + int.parse(validThru.substring(3));
-    return (month >= DateTime.now().month && year >= DateTime.now().year);
+    var lastDayDate = DateTime(year, month + 1, 0);
+    return (lastDayDate.isAfter(DateTime.now()));
   }
 }
