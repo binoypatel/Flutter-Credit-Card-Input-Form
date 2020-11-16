@@ -281,6 +281,9 @@ class _CreditCardInputImplState extends State<CreditCardInputImpl> {
                       .movePrevState();
                 }),
           ),
+          const SizedBox(
+            width: 48,
+          ),
           AnimatedOpacity(
             opacity: _currentState == InputState.DONE ? 0 : 1,
             duration: Duration(milliseconds: 500),
