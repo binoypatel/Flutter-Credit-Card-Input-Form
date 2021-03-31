@@ -14,7 +14,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:validators2/validators.dart';
+import 'package:validators/validators.dart';
 
 import 'constants/captions.dart';
 import 'constants/constanst.dart';
