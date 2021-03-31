@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
   provider: ^4.3.2+2
   flip_card: ^0.4.4
-  validators: ^2.0.1
+  validators2: ^3.0.0
 
 
 dev_dependencies:
